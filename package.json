@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "webpack --watch -d --context src --entry ./chromon.js --output-path . --output-file bundle.js"
+    "watch": "webpack --watch -d --context src --entry ./chromon.js --output-path . --output-file bundle.js",
+    "prod": "webpack -p --context src --entry ./chromon.js --output-path . --output-file bundle.js"
   },
   "author": "",
   "license": "ISC",
