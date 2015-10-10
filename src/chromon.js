@@ -66,9 +66,9 @@ function view(ctrl) {
             m("a", {onclick: ctrl.newScale, href: "#"}, ctrl.scale.name),
             m("h3", "mode."),
 
-            m("a", {title: "walk mode", onclick: ctrl.newWalkMode, href: "#"}, ctrl.walkMode.name),
+            m("a", {title: "walk mode", onclick: ctrl.newWalkMode, href: "#"}, ctrl.walkMode._name),
             " ",
-            m("a", {title: "octaving mode", onclick: ctrl.newOctMode, href: "#"}, ctrl.octMode.name),
+            m("a", {title: "octaving mode", onclick: ctrl.newOctMode, href: "#"}, ctrl.octMode._name),
             m("h3", "speed."),
             m("input", {
                 value: ctrl.interval, type: "number", step: 10, min: 1, oninput: function (e) {

@@ -15,7 +15,7 @@ Map.prototype.add = function (/* ... */) {
         name = "" + arguments[0];
         obj = arguments[1];
     }
-    obj.name = name;
+    obj._name = obj.name = name;
     this.list.push(obj);
     this.map[name] = obj;
 };
