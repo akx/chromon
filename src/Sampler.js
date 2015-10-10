@@ -1,8 +1,5 @@
 var loadAudio = require("./loadAudio");
-
-function note2freq(note) {
-    return Math.pow(2, note / 12) * 440;
-}
+var noteToFreq = require("./midi").noteToFreq;
 
 function Sampler(audioCtx, fileInfos, outputNode) {
     this.fileInfos = JSON.parse(JSON.stringify(fileInfos));
@@ -25,7 +22,8 @@ function Sampler(audioCtx, fileInfos, outputNode) {
     });
 };
 
-Sampler.prototype.play = function(note, volume) {
+Sampler.prototype.play = function(note, volume, duration) {
+    duration = duration || 0.5;
     var srcFile = null;
     var fileInfos = this.fileInfos;
     for(var i = 1; i < fileInfos.length; i++) {
@@ -38,13 +36,13 @@ Sampler.prototype.play = function(note, volume) {
     if(!srcFile.buffer) return;
 
     var source = this.audioCtx.createBufferSource();
-    var noteFreq = note2freq(note);
-    var sampleFreq = note2freq(srcFile.note);
+    var noteFreq = noteToFreq(note);
+    var sampleFreq = noteToFreq(srcFile.note);
     source.buffer = srcFile.buffer;
     source.playbackRate.value = noteFreq / sampleFreq;
     var gain = this.audioCtx.createGain();
     gain.gain.setValueAtTime(volume, this.audioCtx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.4, this.audioCtx.currentTime + 0.1);
+    gain.gain.linearRampToValueAtTime(0, this.audioCtx.currentTime + duration);
     source.connect(gain);
     gain.connect(this.outputNode);
     source.start();
